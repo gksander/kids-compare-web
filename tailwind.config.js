@@ -21,7 +21,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  // plugins: [require("@tailwindcss/aspect-ratio")],
   purge: ["./pages/**/*.tsx", "./pages/**/*.js", "./components/**/*.tsx"],
   darkMode: "class",
 };

@@ -9,7 +9,3 @@ html, body {
     font-size: 18px;
     scroll-behavior: smooth;
 }
-
-.customBgColor {
-    background-color: var(--background-color) !important;
-}
