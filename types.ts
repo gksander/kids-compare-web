@@ -12,7 +12,7 @@ export type Item = React.FC<ItemProps>;
  * Card
  */
 export type Card = {
-  item: Item;
+  item: "apple" | "banana";
   itemProps: ItemProps;
   count: number;
   adj?: string;

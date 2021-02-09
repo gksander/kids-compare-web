@@ -1,32 +1,36 @@
 import { Card, CardList } from "./types";
 import { Apple } from "./components/Apple";
 
-const ONE_RED_APPLE: Card = {
-  item: Apple,
-  itemProps: {},
-  count: 1,
-  adj: "Red",
-  noun: "Apple",
-};
-const ONE_GREEN_APPLE: Card = {
-  item: Apple,
-  itemProps: { fill: "green" },
-  count: 1,
-  adj: "Green",
-  noun: "Apple",
-};
-const TWO_RED_APPLES: Card = {
-  item: Apple,
-  itemProps: {},
-  count: 2,
-  adj: "Two",
-  noun: "Apples",
+export const colorList: CardList = {
+  title: "Colors",
+  cards: Array.from({ length: 9 }).map((_, i) => {
+    const firstCard: Card = {
+      item: "apple",
+      itemProps: {},
+      count: i,
+      adj: `${i}`,
+      noun: "Apple",
+    };
+    const secondCard: Card = {
+      ...firstCard,
+      count: i + 1,
+      adj: `${i + 1}`,
+    };
+
+    return [firstCard, secondCard];
+  }),
 };
 
-export const colorList: CardList = {
+export const numberList: CardList = {
+  ...colorList,
   title: "Numbers",
-  cards: [
-    [ONE_RED_APPLE, ONE_GREEN_APPLE],
-    [ONE_RED_APPLE, TWO_RED_APPLES],
-  ],
+  cards: colorList.cards.map(([card1, card2]) => [
+    { ...card1, itemProps: { fill: "green" } },
+    { ...card2, item: "banana" },
+  ]),
+};
+
+export const lists: { [key: string]: CardList } = {
+  colors: colorList,
+  numbers: numberList,
 };

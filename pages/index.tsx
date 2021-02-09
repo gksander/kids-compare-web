@@ -1,36 +1,40 @@
 import * as React from "react";
-import { Apple } from "../components/Apple";
-import { Grouping } from "../components/Grouping";
-import { Banana } from "../components/Banana";
-import { colorList } from "../data";
+import { lists } from "../data";
+import Link from "next/link";
+import { GetStaticProps } from "next";
 
-const App: React.FC = () => {
-  const list = colorList;
+type HomePageProps = {
+  lists: { title: string; description: string; key: string }[];
+};
 
+const HomePage: React.FC<HomePageProps> = ({ lists }) => {
   return (
     <div>
-      <div className="text-lg">{list.title}</div>
-      <div>
-        {list.cards.map((pair, i) => (
-          <div key={i} className="flex flex-row">
-            {pair.map((card, j) => (
-              <div key={j} className="w-32 mr-6">
-                <div className="flex flex-row">
-                  {Array.from({ length: card.count }).map((_, c) => (
-                    <card.item {...card.itemProps} key={c} />
-                  ))}
-                </div>
-                <div>{card.adj}</div>
-                <div>{card.noun}</div>
-              </div>
-            ))}
+      {lists.map((list) => (
+        <Link href={`/list/${list.key}`} key={list.key}>
+          <div className="shadow-lg p-3 rounded mb-3">
+            <div>{list.title}</div>
+            <div>{list.description}</div>
           </div>
-        ))}
-      </div>
+        </Link>
+      ))}
     </div>
   );
 };
 
-const data = Array.from({ length: 10 }).map((_, i) => i);
+export default HomePage;
 
-export default App;
+/**
+ * Get all lists
+ */
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  return {
+    props: {
+      lists: Object.entries(lists).map(([key, { title, description }]) => ({
+        key,
+        title,
+        description: description || "",
+      })),
+    },
+  };
+};
